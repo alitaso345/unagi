@@ -1,10 +1,10 @@
 package main
 
 import (
+	"github.com/gin-gonic/gin"
 	"net/http"
 	"os"
 )
-import "github.com/gin-gonic/gin"
 
 func main() {
 	port := os.Getenv("PORT")
