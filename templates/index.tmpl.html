@@ -1,0 +1,38 @@
+<html>
+<body>
+<div class="container">
+	<textarea rows="20" cols="150" name="original" id="originalTextArea" >
+「[azusa:久美子さ、なんで南宇治高校に行かなかったの？]」
+「逆に、なんで梓は私が南宇治に行くと思ったの？」
+「[azusa:だって、北中の子らはだいたい南宇治に進学したじゃん。わたし、てっきり久美子も南宇治に行ったんだと思ってた]」
+	</textarea>
+	<button id="convert-button">変換する</button>
+	<textarea rows="20" cols="150" name="original" id="convertedTextArea" ></textarea>
+</div>
+
+<script type="text/javascript">
+	async function convertText() {
+        const originalText = document.getElementById("originalTextArea").value
+		let result = 'test'
+
+		await fetch("/convert", {
+		    method: 'POST',
+			headers: {'content-type': 'application/json'},
+			body: JSON.stringify({
+				"data": originalText
+			})
+		}).then(function (response) {
+			return response.json()
+        }).then(function (json) {
+			console.log(json)
+			result = json.message
+        })
+
+		document.getElementById("convertedTextArea").value = result
+    }
+
+    let button = document.getElementById("convert-button")
+    button.addEventListener("click", convertText)
+</script>
+</body>
+</html>
